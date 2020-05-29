@@ -1,0 +1,169 @@
+{
+	"metadata": {
+		"version": 1
+	},
+	"application": {
+		"name": "guide-rails-demo-restapi-javascript-nodejs",
+		"language": "NODEJS",
+		"artifact_store": {
+			"type": "s3",
+			"repositories": [
+				{
+					"category": "rc-packaging",
+					"bucket": "guide-rails-calculi-rc"
+				},
+				{
+					"category": "final-packaging",
+					"bucket": "guide-rails-calculi-final"
+				},
+				{
+					"category": "logs",
+					"bucket": "guide-rails-calculi-logs"
+				}
+			]
+		}
+	},
+	"pipeline": {
+		"segments": [
+			{
+				"name": "Build",
+				"segment_type": "build",
+				"exit_actions": {
+					"default": {
+						"fetch_logs": true,
+						"code_analysis": {
+							"publish": true,
+							"properties": []
+						},
+						"delete_instances": true
+					},
+					"on_success": {
+						"code_analysis": null
+					},
+					"on_failure": {
+						"code_analysis": null
+					},
+					"on_abort": {
+						"code_analysis": null
+					}
+				},
+				"properties": [
+					{
+						"name": "npm.cache",
+						"description": "npm cache path is set to ${SEGMENT_BASE_DIR}/cache/.npm by default, when caching is enabled. Caches are maintained on the worker where your build gets allocated. For a new worker assigned to the build, the cache will be re-created",
+						"value": "${SEGMENT_BASE_DIR}/cache/.npm"
+					}
+				],
+				"deployment_strategy": {},
+				"application_init": {
+					"command": "",
+					"arguments": null
+				},
+				"packages": [
+					{
+						"name": "((application.name))",
+						"dependencies": [],
+						"downloads": [],
+						"files": [
+							"((application.name))*"
+						],
+						"package_install_command": "",
+						"installed_path": ""
+					}
+				],
+				"instance_tags": [
+					{
+						"name": "application.name",
+						"value": "((application.name))"
+					}
+				],
+				"post_deployment_actions": {
+					"instances": null,
+					"loadbalanced": false,
+					"loadbalancer": {
+						"TargetGroupName": "",
+						"TargetGroupPort": 0,
+						"TargetGroupProtocol": "",
+						"TargetType": "",
+						"VPCID": "",
+						"HealthCheckEnabled": false,
+						"HealthCheckPort": "",
+						"UnhealthyThresholdCount": 0
+					}
+				},
+				"cache_info": {
+					"paths": [
+						"((npm.cache))"
+					]
+				},
+				"tasks": [
+					{
+						"name": "guide-rails-demo-restapi-javascript-nodejs",
+						"steps": [
+							{
+								"name": "Dependencies",
+								"definition": "Dependencies",
+								"command": "npm install",
+								"properties": null
+							},
+							{
+								"name": "Test",
+								"definition": "Test",
+								"command": "npm test",
+								"properties": null
+							},
+							{
+								"name": "Copy reports",
+								"definition": "Copy reports",
+								"command": "echo \"Copy reports for analysis\" \necho \"EXAMPLE cp coverage/cobertura-coverage.xml coverage.xml\"",
+								"properties": null
+							},
+							{
+								"name": "Package app",
+								"definition": "Package app",
+								"command": "echo \"Create packaged application\" \nnpm pack",
+								"properties": null
+							},
+							{
+								"name": "Package dependencies",
+								"definition": "Package dependencies",
+								"command": "echo \"Packaging dependencies - added as a Package\" \ntar -cvf ./node_modules.tar node_modules",
+								"properties": null
+							}
+						],
+						"docker_options": {}
+					}
+				]
+			}
+		],
+		"exit_actions": {},
+		"default_properties": [
+			{
+				"name": "test.me",
+				"value": "testvalue",
+				"type": "string"
+			},
+			{
+				"name": "test.secret.me",
+				"value": "secret:f7616d3d-4515-4fd3-6259-1229141ad3ac/437d5644-9f5d-486d-5bfd-a37afbad7e2e/81cad4c8-3193-42b3-56bf-504bda1c7aac/109be25f-accd-4cb1-493b-3b4f67294fcd/test.secret.me",
+				"type": "string",
+				"secret": true,
+				"secret_path": "f7616d3d-4515-4fd3-6259-1229141ad3ac/437d5644-9f5d-486d-5bfd-a37afbad7e2e/81cad4c8-3193-42b3-56bf-504bda1c7aac/109be25f-accd-4cb1-493b-3b4f67294fcd/test.secret.me"
+			}
+		],
+		"deployment_files": [],
+		"application_init": {
+			"command": "",
+			"arguments": null
+		},
+		"process": {
+			"init": {
+				"command": "bin/start-service.sh"
+			}
+		},
+		"releases": []
+	},
+	"organization": {
+		"orgname": "calculi-io"
+	}
+}
