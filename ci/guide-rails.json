@@ -97,7 +97,7 @@
 							{
 								"name": "Dependencies",
 								"definition": "Dependencies",
-								"command": "npm install",
+								"command": "npm install\n",
 								"properties": null
 							},
 							{
