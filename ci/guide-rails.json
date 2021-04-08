@@ -1,6 +1,6 @@
 {
 	"metadata": {
-		"version": 1
+		"version": 2
 	},
 	"application": {
 		"name": "guide-rails-demo-restapi-javascript-nodejs",
@@ -55,20 +55,14 @@
 					}
 				],
 				"deployment_strategy": {},
-				"application_init": {
-					"command": "",
-					"arguments": null
-				},
+				"application_init": {},
 				"packages": [
 					{
 						"name": "((application.name))",
-						"dependencies": [],
 						"downloads": [],
 						"files": [
-							"((application.name))*"
-						],
-						"package_install_command": "",
-						"installed_path": ""
+							"node_modules.tar"
+						]
 					}
 				],
 				"instance_tags": [
@@ -152,16 +146,12 @@
 			}
 		],
 		"deployment_files": [],
-		"application_init": {
-			"command": "",
-			"arguments": null
-		},
+		"application_init": {},
 		"process": {
 			"init": {
 				"command": "bin/start-service.sh"
 			}
-		},
-		"releases": []
+		}
 	},
 	"organization": {
 		"orgname": "calculi-io"
