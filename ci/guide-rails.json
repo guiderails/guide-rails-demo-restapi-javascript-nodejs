@@ -50,8 +50,8 @@
 				"properties": [
 					{
 						"name": "npm.cache",
-						"description": "npm cache path is set to ${SEGMENT_BASE_DIR}/cache/.npm by default, when caching is enabled. Caches are maintained on the worker where your build gets allocated. For a new worker assigned to the build, the cache will be re-created",
-						"value": "${SEGMENT_BASE_DIR}/cache/.npm"
+						"value": "${SEGMENT_BASE_DIR}/cache/.npm",
+						"description": "npm cache path is set to ${SEGMENT_BASE_DIR}/cache/.npm by default, when caching is enabled. Caches are maintained on the worker where your build gets allocated. For a new worker assigned to the build, the cache will be re-created"
 					}
 				],
 				"deployment_strategy": {},
@@ -72,18 +72,7 @@
 					}
 				],
 				"post_deployment_actions": {
-					"instances": null,
-					"loadbalanced": false,
-					"loadbalancer": {
-						"TargetGroupName": "",
-						"TargetGroupPort": 0,
-						"TargetGroupProtocol": "",
-						"TargetType": "",
-						"VPCID": "",
-						"HealthCheckEnabled": false,
-						"HealthCheckPort": "",
-						"UnhealthyThresholdCount": 0
-					}
+					"loadbalancer": {}
 				},
 				"cache_info": {
 					"paths": [
@@ -143,13 +132,6 @@
 				"name": "test.me",
 				"value": "testvalue",
 				"type": "string"
-			},
-			{
-				"name": "test.secret.me",
-				"value": "secret:f7616d3d-4515-4fd3-6259-1229141ad3ac/437d5644-9f5d-486d-5bfd-a37afbad7e2e/81cad4c8-3193-42b3-56bf-504bda1c7aac/109be25f-accd-4cb1-493b-3b4f67294fcd/test.secret.me",
-				"type": "string",
-				"secret": true,
-				"secret_path": "f7616d3d-4515-4fd3-6259-1229141ad3ac/437d5644-9f5d-486d-5bfd-a37afbad7e2e/81cad4c8-3193-42b3-56bf-504bda1c7aac/109be25f-accd-4cb1-493b-3b4f67294fcd/test.secret.me"
 			}
 		],
 		"deployment_files": [],
